@@ -169,33 +169,15 @@ st.markdown(
         color: var(--muted);
     }
     .stAlert { border-radius: 8px !important; }
+
+    /* Ocultar el badge de Streamlit en modo embed */
+    [class*="_container_1upux_1"],
+    [class*="_hostedName_1upux_12"],
+    [class*="_linkOutText_1upux_17"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
     </style>
-
-    <script>
-    // Ocultar el badge de Streamlit más agresivamente
-    setTimeout(function() {
-        var elements = document.querySelectorAll('div, span, p');
-        elements.forEach(function(el) {
-            if (el.textContent && el.textContent.includes('Built with Streamlit')) {
-                el.style.display = 'none';
-                el.style.visibility = 'hidden';
-                if (el.parentElement) {
-                    el.parentElement.style.display = 'none';
-                }
-            }
-        });
-    }, 100);
-
-    // Ejecutar en intervalos para asegurar que se oculte
-    setInterval(function() {
-        var elements = document.querySelectorAll('div, span, p');
-        elements.forEach(function(el) {
-            if (el.textContent && el.textContent.includes('Built with Streamlit')) {
-                el.style.display = 'none';
-            }
-        });
-    }, 1000);
-    </script>
     """,
     unsafe_allow_html=True,
 )
