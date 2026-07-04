@@ -21,8 +21,9 @@ st.set_page_config(
 # --- Custom CSS -----------------------------------------------------------
 st.markdown("""
 <style>
+st.markdown("""<style>
 /* --- OCULTAR ELEMENTOS DE STREAMLIT (VERSIÓN BLINDADA) --- */
-#MainMenu {visibility: hidden !important;}
+#MainMenu {visibility: hidden !important; display: none !important;}
 footer {visibility: hidden !important; display: none !important;}
 header {visibility: hidden !important; display: none !important;}
 [data-testid="stFooter"] {visibility: hidden !important; display: none !important;}
@@ -30,8 +31,36 @@ header {visibility: hidden !important; display: none !important;}
 [data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
 [data-testid="stDecoration"] {visibility: hidden !important; display: none !important;}
 .viewerBadge_container__1QSob {visibility: hidden !important; display: none !important;}
-[class*="badge"] {visibility: hidden !important; display: none !important;}
-div[data-testid="stAppViewBlockContainer"]::after {display: none !important;}
+div[class*="badge"] {visibility: hidden !important; display: none !important;}
+[class*="Built with"] {visibility: hidden !important; display: none !important;}
+</style>
+
+<script>
+// Ocultar el badge de Streamlit más agresivamente
+setTimeout(function() {
+    var elements = document.querySelectorAll('div, span, p');
+    elements.forEach(function(el) {
+        if (el.textContent && el.textContent.includes('Built with Streamlit')) {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            if (el.parentElement) {
+                el.parentElement.style.display = 'none';
+            }
+        }
+    });
+}, 100);
+
+// Ejecutar en intervalos para asegurar que se oculte
+setInterval(function() {
+    var elements = document.querySelectorAll('div, span, p');
+    elements.forEach(function(el) {
+        if (el.textContent && el.textContent.includes('Built with Streamlit')) {
+            el.style.display = 'none';
+        }
+    });
+}, 1000);
+</script>
+""", unsafe_allow_html=True)
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
 :root {
