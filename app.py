@@ -23,13 +23,15 @@ st.markdown("""
 <style>
 /* --- OCULTAR ELEMENTOS DE STREAMLIT (VERSIÓN BLINDADA) --- */
 #MainMenu {visibility: hidden !important;}
-footer {display: none !important;}
-header {display: none !important;}
-[data-testid="stFooter"] {display: none !important;}
-[data-testid="stHeader"] {display: none !important;}
-[data-testid="stToolbar"] {display: none !important;}
-[data-testid="stDecoration"] {display: none !important;}
-.viewerBadge_container__1QSob {display: none !important;}
+footer {visibility: hidden !important; display: none !important;}
+header {visibility: hidden !important; display: none !important;}
+[data-testid="stFooter"] {visibility: hidden !important; display: none !important;}
+[data-testid="stHeader"] {visibility: hidden !important; display: none !important;}
+[data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
+[data-testid="stDecoration"] {visibility: hidden !important; display: none !important;}
+.viewerBadge_container__1QSob {visibility: hidden !important; display: none !important;}
+[class*="badge"] {visibility: hidden !important; display: none !important;}
+div[data-testid="stAppViewBlockContainer"]::after {display: none !important;}
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
 :root {
