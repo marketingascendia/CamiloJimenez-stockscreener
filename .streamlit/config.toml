@@ -1,4 +1,5 @@
 [client]
+showToolbar = false
 showFooterInToolbar = false
 showErrorDetails = false
 
