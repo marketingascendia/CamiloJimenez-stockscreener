@@ -18,9 +18,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─── Custom CSS ───────────────────────────────────────────────────────────────
+# --- Custom CSS -----------------------------------------------------------
 st.markdown("""
 <style>
+/* --- Ocultar marca de agua, menú y pie de página de Streamlit --- */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.viewerBadge_container__1QSob {display: none;}
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
 :root {
