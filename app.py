@@ -19,184 +19,186 @@ st.set_page_config(
 )
 
 # --- Custom CSS -----------------------------------------------------------
-st.markdown("""
-<style>
-/* --- OCULTAR ELEMENTOS DE STREAMLIT (VERSIÓN BLINDADA) --- */
-#MainMenu {visibility: hidden !important; display: none !important;}
-footer {visibility: hidden !important; display: none !important;}
-header {visibility: hidden !important; display: none !important;}
-[data-testid="stFooter"] {visibility: hidden !important; display: none !important;}
-[data-testid="stHeader"] {visibility: hidden !important; display: none !important;}
-[data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
-[data-testid="stDecoration"] {visibility: hidden !important; display: none !important;}
-.viewerBadge_container__1QSob {visibility: hidden !important; display: none !important;}
-div[class*="badge"] {visibility: hidden !important; display: none !important;}
-[class*="Built with"] {visibility: hidden !important; display: none !important;}
-</style>
+st.markdown(
+    """
+    <style>
+    /* --- OCULTAR ELEMENTOS DE STREAMLIT (VERSIÓN BLINDADA) --- */
+    #MainMenu {visibility: hidden !important; display: none !important;}
+    footer {visibility: hidden !important; display: none !important;}
+    header {visibility: hidden !important; display: none !important;}
+    [data-testid="stFooter"] {visibility: hidden !important; display: none !important;}
+    [data-testid="stHeader"] {visibility: hidden !important; display: none !important;}
+    [data-testid="stToolbar"] {visibility: hidden !important; display: none !important;}
+    [data-testid="stDecoration"] {visibility: hidden !important; display: none !important;}
+    .viewerBadge_container__1QSob {visibility: hidden !important; display: none !important;}
+    div[class*="badge"] {visibility: hidden !important; display: none !important;}
+    [class*="Built with"] {visibility: hidden !important; display: none !important;}
 
-<script>
-// Ocultar el badge de Streamlit más agresivamente
-setTimeout(function() {
-    var elements = document.querySelectorAll('div, span, p');
-    elements.forEach(function(el) {
-        if (el.textContent && el.textContent.includes('Built with Streamlit')) {
-            el.style.display = 'none';
-            el.style.visibility = 'hidden';
-            if (el.parentElement) {
-                el.parentElement.style.display = 'none';
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+
+    :root {
+        --bg:       #0a0c10;
+        --bg2:      #111318;
+        --bg3:      #1a1d24;
+        --border:   #252830;
+        --accent:   #00e5a0;
+        --accent2:  #0077ff;
+        --warn:     #ff4d6d;
+        --text:     #e8eaf0;
+        --muted:    #6b7280;
+        --pass:     #00e5a0;
+        --fail:     #ff4d6d;
+    }
+
+    html, body, [class*="css"] {
+        background-color: var(--bg) !important;
+        color: var(--text) !important;
+        font-family: 'Syne', sans-serif;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: var(--bg2) !important;
+        border-right: 1px solid var(--border);
+    }
+    section[data-testid="stSidebar"] * { color: var(--text) !important; }
+
+    /* Headers */
+    h1, h2, h3 { font-family: 'Syne', sans-serif !important; font-weight: 800 !important; }
+    h1 { font-size: 2rem !important; letter-spacing: -0.03em; }
+
+    /* Metric cards */
+    [data-testid="metric-container"] {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem !important;
+    }
+    [data-testid="stMetricValue"] { font-family: 'Space Mono', monospace !important; font-size: 1.4rem !important; }
+    [data-testid="stMetricLabel"] { color: var(--muted) !important; font-size: 0.75rem !important; letter-spacing: 0.05em; text-transform: uppercase; }
+    [data-testid="stMetricDelta"] svg { display: none; }
+
+    /* Tabs */
+    button[data-baseweb="tab"] {
+        font-family: 'Syne', sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.03em;
+        color: var(--muted) !important;
+        background: transparent !important;
+        border-bottom: 2px solid transparent !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: var(--accent) !important;
+        border-bottom: 2px solid var(--accent) !important;
+    }
+    [data-testid="stTabPanel"] { padding-top: 1.5rem; }
+
+    /* Inputs */
+    input, textarea, select, [data-baseweb="input"] input {
+        background: var(--bg3) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+        border-radius: 6px !important;
+        font-family: 'Space Mono', monospace !important;
+    }
+    [data-baseweb="select"] > div {
+        background: var(--bg3) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+    }
+
+    /* Buttons */
+    button[kind="primary"], [data-testid="stButton"] > button {
+        background: var(--accent) !important;
+        color: #000 !important;
+        font-family: 'Syne', sans-serif !important;
+        font-weight: 700 !important;
+        border: none !important;
+        border-radius: 6px !important;
+        letter-spacing: 0.05em;
+        transition: opacity 0.15s;
+    }
+    button[kind="primary"]:hover, [data-testid="stButton"] > button:hover { opacity: 0.85 !important; }
+
+    /* Number inputs */
+    [data-testid="stNumberInput"] input { font-family: 'Space Mono', monospace !important; }
+
+    /* Slider */
+    [data-testid="stSlider"] { accent-color: var(--accent); }
+
+    /* DataFrame */
+    [data-testid="stDataFrame"] { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+
+    /* Divider */
+    hr { border-color: var(--border) !important; }
+
+    /* Pass/Fail badges */
+    .badge-pass {
+        background: rgba(0,229,160,0.12);
+        color: #00e5a0;
+        border: 1px solid rgba(0,229,160,0.3);
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: 'Space Mono', monospace;
+        letter-spacing: 0.05em;
+    }
+    .badge-fail {
+        background: rgba(255,77,109,0.12);
+        color: #ff4d6d;
+        border: 1px solid rgba(255,77,109,0.3);
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: 'Space Mono', monospace;
+        letter-spacing: 0.05em;
+    }
+    .section-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+    }
+    .ticker-header {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--muted);
+    }
+    .stAlert { border-radius: 8px !important; }
+    </style>
+
+    <script>
+    // Ocultar el badge de Streamlit más agresivamente
+    setTimeout(function() {
+        var elements = document.querySelectorAll('div, span, p');
+        elements.forEach(function(el) {
+            if (el.textContent && el.textContent.includes('Built with Streamlit')) {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                if (el.parentElement) {
+                    el.parentElement.style.display = 'none';
+                }
             }
-        }
-    });
-}, 100);
+        });
+    }, 100);
 
-// Ejecutar en intervalos para asegurar que se oculte
-setInterval(function() {
-    var elements = document.querySelectorAll('div, span, p');
-    elements.forEach(function(el) {
-        if (el.textContent && el.textContent.includes('Built with Streamlit')) {
-            el.style.display = 'none';
-        }
-    });
-}, 1000);
-</script>
-""", unsafe_allow_html=True)
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
-
-:root {
-    --bg:       #0a0c10;
-    --bg2:      #111318;
-    --bg3:      #1a1d24;
-    --border:   #252830;
-    --accent:   #00e5a0;
-    --accent2:  #0077ff;
-    --warn:     #ff4d6d;
-    --text:     #e8eaf0;
-    --muted:    #6b7280;
-    --pass:     #00e5a0;
-    --fail:     #ff4d6d;
-}
-
-html, body, [class*="css"] {
-    background-color: var(--bg) !important;
-    color: var(--text) !important;
-    font-family: 'Syne', sans-serif;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: var(--bg2) !important;
-    border-right: 1px solid var(--border);
-}
-section[data-testid="stSidebar"] * { color: var(--text) !important; }
-
-/* Headers */
-h1, h2, h3 { font-family: 'Syne', sans-serif !important; font-weight: 800 !important; }
-h1 { font-size: 2rem !important; letter-spacing: -0.03em; }
-
-/* Metric cards */
-[data-testid="metric-container"] {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem !important;
-}
-[data-testid="stMetricValue"] { font-family: 'Space Mono', monospace !important; font-size: 1.4rem !important; }
-[data-testid="stMetricLabel"] { color: var(--muted) !important; font-size: 0.75rem !important; letter-spacing: 0.05em; text-transform: uppercase; }
-[data-testid="stMetricDelta"] svg { display: none; }
-
-/* Tabs */
-button[data-baseweb="tab"] {
-    font-family: 'Syne', sans-serif !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.03em;
-    color: var(--muted) !important;
-    background: transparent !important;
-    border-bottom: 2px solid transparent !important;
-}
-button[data-baseweb="tab"][aria-selected="true"] {
-    color: var(--accent) !important;
-    border-bottom: 2px solid var(--accent) !important;
-}
-[data-testid="stTabPanel"] { padding-top: 1.5rem; }
-
-/* Inputs */
-input, textarea, select, [data-baseweb="input"] input {
-    background: var(--bg3) !important;
-    border: 1px solid var(--border) !important;
-    color: var(--text) !important;
-    border-radius: 6px !important;
-    font-family: 'Space Mono', monospace !important;
-}
-[data-baseweb="select"] > div {
-    background: var(--bg3) !important;
-    border: 1px solid var(--border) !important;
-    color: var(--text) !important;
-}
-
-/* Buttons */
-button[kind="primary"], [data-testid="stButton"] > button {
-    background: var(--accent) !important;
-    color: #000 !important;
-    font-family: 'Syne', sans-serif !important;
-    font-weight: 700 !important;
-    border: none !important;
-    border-radius: 6px !important;
-    letter-spacing: 0.05em;
-    transition: opacity 0.15s;
-}
-button[kind="primary"]:hover, [data-testid="stButton"] > button:hover { opacity: 0.85 !important; }
-
-/* Number inputs */
-[data-testid="stNumberInput"] input { font-family: 'Space Mono', monospace !important; }
-
-/* Slider */
-[data-testid="stSlider"] { accent-color: var(--accent); }
-
-/* DataFrame */
-[data-testid="stDataFrame"] { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-
-/* Divider */
-hr { border-color: var(--border) !important; }
-
-/* Pass/Fail badges */
-.badge-pass {
-    background: rgba(0,229,160,0.12);
-    color: #00e5a0;
-    border: 1px solid rgba(0,229,160,0.3);
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: 'Space Mono', monospace;
-    letter-spacing: 0.05em;
-}
-.badge-fail {
-    background: rgba(255,77,109,0.12);
-    color: #ff4d6d;
-    border: 1px solid rgba(255,77,109,0.3);
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    font-family: 'Space Mono', monospace;
-    letter-spacing: 0.05em;
-}
-.section-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-}
-.ticker-header {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--muted);
-}
-.stAlert { border-radius: 8px !important; }
-</style>
-""", unsafe_allow_html=True)
+    // Ejecutar en intervalos para asegurar que se oculte
+    setInterval(function() {
+        var elements = document.querySelectorAll('div, span, p');
+        elements.forEach(function(el) {
+            if (el.textContent && el.textContent.includes('Built with Streamlit')) {
+                el.style.display = 'none';
+            }
+        });
+    }, 1000);
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
 
 PLOTLY_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
