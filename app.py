@@ -173,6 +173,19 @@ ACCENT2  = "#0077ff"
 WARN     = "#ff4d6d"
 AMBER    = "#f59e0b"
 
+# =====================================================================
+# 🛡️ COMPUERTA DE SEGURIDAD (SISTEMA DE LOGIN)
+# =====================================================================
+from login import requerir_autenticacion, boton_cerrar_sesion
+
+# Si el estudiante no se ha autenticado, se pausa la carga de toda la app aquí:
+if not requerir_autenticacion():
+    st.stop()
+
+# Si ya inició sesión correctamente, mostramos el botón de salir en la barra lateral:
+boton_cerrar_sesion()
+# =====================================================================
+
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def fmt_b(v):
     if v is None or (isinstance(v, float) and np.isnan(v)): return "—"
